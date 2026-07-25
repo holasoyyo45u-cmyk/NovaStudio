@@ -1,6 +1,8 @@
 import json
 import re
+
 from memory import add_history, get_learned_commands
+from context import update_context
 
 
 # Cargar comandos base
@@ -13,16 +15,18 @@ base_commands = data["commands"]
 def clean_text(text):
     text = text.lower()
     text = re.sub(r"[^a-záéíóúñ0-9 ]", "", text)
-    return text
+    return text.strip()
+
 
 
 def get_all_commands():
+
     commands = {}
 
-    # Agregar comandos originales
+    # Comandos originales
     commands.update(base_commands)
 
-    # Agregar comandos aprendidos
+    # Comandos aprendidos
     learned = get_learned_commands()
 
     commands.update(learned)
@@ -32,9 +36,11 @@ def get_all_commands():
 
 
 def calculate_score(text, keywords):
+
     score = 0
 
     for keyword in keywords:
+
         keyword = clean_text(keyword)
 
         if keyword in text:
@@ -67,39 +73,79 @@ def translate(text):
             best_score = score
 
             best_command = {
+
                 "command": name,
+
                 "action": info["action"],
-                "parameters": info.get("parameters", []),
-                "description": info["description"],
+
+                "parameters": info.get(
+                    "parameters",
+                    []
+                ),
+
+                "description": info.get(
+                    "description",
+                    ""
+                ),
+
                 "confidence": score
+
             }
+
 
 
     if best_command:
 
         add_history({
+
             "input": text,
+
             "result": best_command
+
         })
+
+
+        update_context(
+
+            best_command["action"]
+
+        )
+
 
         return best_command
 
 
+
     return {
+
         "command": "unknown",
+
         "action": "None",
+
         "parameters": [],
-        "description": "Nova no reconoce esa orden",
+
+        "description": "Nova no entendió la orden",
+
         "confidence": 0
+
     }
 
 
 
-while True:
+if __name__ == "__main__":
 
-    user = input("\nNova > ")
+    while True:
 
-    result = translate(user)
+        user = input("\nNova > ")
 
-    print("\n--- Nova ---")
-    print(result)
+        result = translate(user)
+
+        print("\n--- Resultado ---")
+
+        print(
+            json.dumps(
+                result,
+                indent=4,
+                ensure_ascii=False
+            )
+        )
