@@ -3,6 +3,7 @@ import re
 
 from memory import add_history, get_learned_commands
 from context import update_context
+from parameters import extract_parameters
 
 
 # Cargar comandos base
@@ -12,9 +13,14 @@ with open("NovaCore/commands.json", "r", encoding="utf-8") as file:
 base_commands = data["commands"]
 
 
+
 def clean_text(text):
     text = text.lower()
-    text = re.sub(r"[^a-záéíóúñ0-9 ]", "", text)
+    text = re.sub(
+        r"[^a-záéíóúñ0-9 ]",
+        "",
+        text
+    )
     return text.strip()
 
 
@@ -23,10 +29,8 @@ def get_all_commands():
 
     commands = {}
 
-    # Comandos originales
     commands.update(base_commands)
 
-    # Comandos aprendidos
     learned = get_learned_commands()
 
     commands.update(learned)
@@ -44,6 +48,7 @@ def calculate_score(text, keywords):
         keyword = clean_text(keyword)
 
         if keyword in text:
+
             score += len(keyword)
 
     return score
@@ -93,8 +98,12 @@ def translate(text):
             }
 
 
-
     if best_command:
+
+        detected_parameters = extract_parameters(text)
+
+        best_command["detected_values"] = detected_parameters
+
 
         add_history({
 
@@ -107,7 +116,9 @@ def translate(text):
 
         update_context(
 
-            best_command["action"]
+            best_command["action"],
+
+            parameters=detected_parameters
 
         )
 
@@ -123,6 +134,8 @@ def translate(text):
         "action": "None",
 
         "parameters": [],
+
+        "detected_values": {},
 
         "description": "Nova no entendió la orden",
 
@@ -140,7 +153,7 @@ if __name__ == "__main__":
 
         result = translate(user)
 
-        print("\n--- Resultado ---")
+        print("\n--- Nova ---")
 
         print(
             json.dumps(
