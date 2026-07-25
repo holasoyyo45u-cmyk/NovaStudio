@@ -1,7 +1,7 @@
 import json
 
 from .translator import translate
-from action_builder import build_action
+from .action_builder import build_action
 from Luau.generator import generate_luau
 
 
