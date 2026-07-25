@@ -1,5 +1,5 @@
-from translator import translate
-from action_builder import build_action
+from .translator import translate
+from .action_builder import build_action
 from Luau.generator import generate_luau
 
 texto = "crea una esfera roja gigante"
