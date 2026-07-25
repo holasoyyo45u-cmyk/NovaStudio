@@ -2,19 +2,23 @@
   "commands": {
     "crear_parte": {
       "action": "CreatePart",
+      "parameters": ["size", "position", "color"],
       "description": "Crea una nueva pieza"
+    },
+    "crear_esfera": {
+      "action": "CreateSphere",
+      "parameters": ["size", "position", "color"],
+      "description": "Crea una esfera"
     },
     "cambiar_color": {
       "action": "ChangeColor",
+      "parameters": ["object", "color"],
       "description": "Cambia el color de un objeto"
     },
     "mover_objeto": {
       "action": "MoveObject",
+      "parameters": ["object", "position"],
       "description": "Mueve un objeto"
-    },
-    "eliminar_objeto": {
-      "action": "DeleteObject",
-      "description": "Elimina un objeto"
     }
   }
 }
