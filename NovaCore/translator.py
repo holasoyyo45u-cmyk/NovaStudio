@@ -1,5 +1,6 @@
 import json
 import re
+from memory import add_history
 
 # Cargar comandos
 with open("NovaCore/commands.json", "r", encoding="utf-8") as file:
@@ -27,7 +28,8 @@ def calculate_score(text, keywords):
 
 
 def translate(text):
-    text = clean_text(text)
+
+    clean = clean_text(text)
 
     best_command = None
     best_score = 0
@@ -35,6 +37,49 @@ def translate(text):
     for name, info in commands.items():
 
         score = calculate_score(
+            clean,
+            info.get("keywords", [])
+        )
+
+        if score > best_score:
+            best_score = score
+
+            best_command = {
+                "command": name,
+                "action": info["action"],
+                "parameters": info["parameters"],
+                "description": info["description"],
+                "confidence": score
+            }
+
+
+    if best_command:
+        add_history({
+            "input": text,
+            "result": best_command
+        })
+
+        return best_command
+
+
+    return {
+        "command": "unknown",
+        "action": "None",
+        "parameters": [],
+        "description": "No entendí la orden",
+        "confidence": 0
+    }
+
+
+
+while True:
+
+    user = input("\nNova > ")
+
+    result = translate(user)
+
+    print("\n--- Resultado ---")
+    print(result)        score = calculate_score(
             text,
             info.get("keywords", [])
         )
