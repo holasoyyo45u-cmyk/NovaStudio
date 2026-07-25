@@ -42,13 +42,7 @@ def learn_command(name, data):
     save_memory(memory)
 
 
-# Prueba
-if __name__ == "__main__":
+def get_learned_commands():
     memory = load_memory()
 
-    print("Memoria de Nova:")
-    print(memory)
-
-    add_history("Primer comando de Nova")
-
-    print("Guardado correctamente")
+    return memory.get("learned_commands", {})
