@@ -1,5 +1,5 @@
 import json
-from memory import learn_command
+from .memory import learn_command
 
 
 def create_command(name, action, keywords):
