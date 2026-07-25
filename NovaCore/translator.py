@@ -1,7 +1,7 @@
 import json
 import re
 
-from memory import add_history, get_learned_commands
+from .memory import add_history, get_learned_commands
 from context import update_context
 from parameters import extract_parameters
 
