@@ -1,1 +1,20 @@
-
+{
+  "commands": {
+    "crear_parte": {
+      "action": "CreatePart",
+      "description": "Crea una nueva pieza"
+    },
+    "cambiar_color": {
+      "action": "ChangeColor",
+      "description": "Cambia el color de un objeto"
+    },
+    "mover_objeto": {
+      "action": "MoveObject",
+      "description": "Mueve un objeto"
+    },
+    "eliminar_objeto": {
+      "action": "DeleteObject",
+      "description": "Elimina un objeto"
+    }
+  }
+}
