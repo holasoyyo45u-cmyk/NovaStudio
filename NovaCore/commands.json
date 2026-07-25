@@ -2,23 +2,49 @@
   "commands": {
     "crear_parte": {
       "action": "CreatePart",
-      "parameters": ["size", "position", "color"],
-      "description": "Crea una nueva pieza"
+      "keywords": [
+        "crear parte",
+        "haz una parte",
+        "crea un bloque",
+        "nueva pieza"
+      ],
+      "parameters": [
+        "size",
+        "position",
+        "color"
+      ],
+      "description": "Crea una pieza nueva"
     },
+
     "crear_esfera": {
       "action": "CreateSphere",
-      "parameters": ["size", "position", "color"],
+      "keywords": [
+        "crear esfera",
+        "haz una esfera",
+        "crea una bola",
+        "esfera nueva"
+      ],
+      "parameters": [
+        "size",
+        "position",
+        "color"
+      ],
       "description": "Crea una esfera"
     },
+
     "cambiar_color": {
       "action": "ChangeColor",
-      "parameters": ["object", "color"],
+      "keywords": [
+        "cambiar color",
+        "pon color",
+        "colorea",
+        "hazlo rojo"
+      ],
+      "parameters": [
+        "object",
+        "color"
+      ],
       "description": "Cambia el color de un objeto"
-    },
-    "mover_objeto": {
-      "action": "MoveObject",
-      "parameters": ["object", "position"],
-      "description": "Mueve un objeto"
     }
   }
 }
